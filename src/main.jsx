@@ -127,7 +127,7 @@ function ScrambleText({ text }) {
         } else {
           renderFrame(lockedCount);
         }
-      }, 40);
+      }, 100);
     }, { threshold: .6, rootMargin: '0px 0px -32px 0px' });
 
     const finishForReducedMotion = () => {
