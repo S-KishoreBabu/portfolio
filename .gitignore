@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.vite/
+*.local
+my images/
+.aws/
+.codex/
+.agents/
+.env
+.env.*
+!.env.example
