@@ -94,6 +94,73 @@ const experiences = [
   },
 ];
 
+function ScrambleText({ text }) {
+  const [displayText, setDisplayText] = useState(text);
+  const textRef = useRef(null);
+
+  useEffect(() => {
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (motionPreference.matches) return;
+
+    const letters = Array.from(text);
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let timer;
+    let started = false;
+    const renderFrame = lockedCount => setDisplayText(letters.map((letter, index) => {
+      if (index < lockedCount || letter === ' ') return letter;
+      const randomLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
+      return letter === letter.toLowerCase() ? randomLetter.toLowerCase() : randomLetter;
+    }).join(''));
+
+    const observer = new IntersectionObserver(entries => {
+      if (started || !entries.some(entry => entry.isIntersecting)) return;
+      started = true;
+      observer.disconnect();
+      renderFrame(0);
+      let tick = 0;
+      timer = window.setInterval(() => {
+        tick += 1;
+        const lockedCount = Math.max(0, Math.floor((tick - 5) / 4));
+        if (lockedCount >= letters.length) {
+          window.clearInterval(timer);
+          setDisplayText(text);
+        } else {
+          renderFrame(lockedCount);
+        }
+      }, 40);
+    }, { threshold: .6, rootMargin: '0px 0px -32px 0px' });
+
+    const finishForReducedMotion = () => {
+      if (!motionPreference.matches) return;
+      observer.disconnect();
+      window.clearInterval(timer);
+      setDisplayText(text);
+    };
+
+    observer.observe(textRef.current);
+    motionPreference.addEventListener('change', finishForReducedMotion);
+    return () => {
+      observer.disconnect();
+      window.clearInterval(timer);
+      motionPreference.removeEventListener('change', finishForReducedMotion);
+    };
+  }, [text]);
+
+  return (
+    <span className="scramble-text" ref={textRef}>
+      <span className="sr-only">{text}</span>
+      <span className="scramble-text-visual" aria-hidden="true">
+        {Array.from(text).map((letter, index) => (
+          <span className="scramble-letter" key={index}>
+            <span className="scramble-letter-width">{letter}</span>
+            <span className="scramble-letter-value">{displayText[index]}</span>
+          </span>
+        ))}
+      </span>
+    </span>
+  );
+}
+
 function ExperienceTimeline() {
   const [galleryOpen, setGalleryOpen] = useState(false);
 
@@ -106,7 +173,7 @@ function ExperienceTimeline() {
         onKeyDown={event => { if (event.key === 'Escape') setGalleryOpen(false); }}
       >
         <div className="experience-left">
-          <h2 id="experience-heading">Experience<span>.</span></h2>
+          <h2 id="experience-heading"><ScrambleText text="Experience" /><span className="experience-heading-dot">.</span></h2>
           <ol className="timeline-list">
             {[...experiences].reverse().map(experience => (
               <li className="timeline-item" key={experience.company} onPointerEnter={() => { if (!experience.current) setGalleryOpen(false); }}>
