@@ -676,7 +676,10 @@ function TeaMessageSection() {
       </div>
       <div className="tea-inner">
         <figure className="tea-illustration">
-          <img src="/assets/chai-conversation-v2.png" alt="A complete colored-pencil sketch of two hands raising glasses of steaming chai, with softly drawn sleeve ends" width="1536" height="1024" loading="lazy" />
+          <picture>
+            <source media="(prefers-reduced-motion: reduce)" srcSet="/assets/chai-conversation-v2.png" />
+            <img src="/assets/chai-steam.gif" alt="A colored-pencil sketch of two hands raising glasses of steaming chai" width="768" height="512" loading="lazy" decoding="async" />
+          </picture>
           <figcaption className="handwritten">a little chai, a little conversation.</figcaption>
         </figure>
         <div className="tea-message">

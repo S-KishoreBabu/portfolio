@@ -595,6 +595,7 @@ a.hello-button { text-decoration: none; }
 }
 .tea-inner { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: center; gap: clamp(42px, 7vw, 100px); max-width: 1210px; margin: 0 auto; }
 .tea-illustration { width: min(100%, 420px); margin: 0 auto; overflow: visible; }
+.tea-illustration picture { display: block; }
 .tea-illustration img { display: block; width: 100%; max-width: 100%; height: auto; object-fit: contain; }
 .tea-illustration figcaption { margin-top: 10px; color: #9b7754; text-align: center; font-size: 25px; transform: rotate(-3deg); }
 .tea-message { min-width: 0; }

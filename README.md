@@ -19,7 +19,7 @@ Create a production build with `npm run build`, or preview it with `npm run prev
 - A looping technology carousel that pauses on hover.
 - A company project table with project logos and smoothly expanding details on hover. Interngo and AOKAH use their original brand marks; the blue FC Labs mark is a locally authored SVG.
 - A personal projects section for the Tokenizer, LeetCode Grid Viewer, and React Component Library.
-- A chai message section with a generated scribble illustration and a heading rotating through Tamil, Hindi, Malayalam, Telugu, Kannada, and English. The form opens a draft in the visitor's email app; it does not submit to a server.
+- A chai message section with a looping steam animation and a heading rotating through Tamil, Hindi, Malayalam, Telugu, Kannada, and English. The hands and cups stay still, and reduced-motion visitors receive the static illustration. The form opens a draft in the visitor's email app; it does not submit to a server.
 - A closing social and contact section with a generated pencil-scribble portrait, profile links, email, and location.
 - Reduced-motion support and responsive layouts.
 
@@ -28,6 +28,8 @@ Create a production build with `npm run build`, or preview it with `npm run prev
 Edit the `profile` object in `src/main.jsx` to update the name, introduction, location, email, and portraits. Sky palettes and scene blending are in `src/sky/time.js`; visual styling is in `src/styles.css` and `src/sky/sky.css`.
 
 Generated images used by the site are in `public/assets/`. The reference photographs in `my images/` are local source material and are not served by the site or included in the repository.
+
+To regenerate the tea GIF, run `python3 scripts/create-tea-steam-gif.py` with Pillow installed. This is an optional asset-authoring step; normal builds use the committed GIF and need no Python dependencies.
 
 ## Scripts
 

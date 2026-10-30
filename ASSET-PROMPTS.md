@@ -1,5 +1,11 @@
 # Generated asset prompts
 
+## public/assets/chai-steam-base.png and public/assets/chai-steam.gif
+
+Mode: built-in image editing prepared the steam-free base from `public/assets/chai-conversation-v2.png`. The user's requested GIF conversion is rendered and encoded by `scripts/create-tea-steam-gif.py` with Pillow: a fixed white-backed illustration, two gently rising pencil steam wisps, one shared 256-color palette, 48 frames at 100 ms, 4.8-second seamless infinite loop, 768 x 512 pixels. Only the steam changes between frames. The original static illustration remains the reduced-motion fallback.
+
+Use case: precise-object-edit. Edit target: the supplied transparent colored-pencil drawing of two hands raising two chai glasses. Prepare a clean base plate for a steam-only animation. Remove ONLY the two steam curls and their hazy glow ABOVE the rims of both glasses, replacing that area with genuinely empty transparent pixels. Keep every other part exactly the same: two hands, fingers, sleeve ends, glass positions, rim ellipses, tea, pencil strokes, colors, perspective, scale, existing framing, and generous empty margins. Preserve the full two hands and sleeves without cropping. Do not move or redraw the cups. Keep the original landscape 3:2 composition and same 1536 by 1024 framing. No steam, smoke, mist or marks above the cups in the result. Transparent background, no paper rectangle, no typography, no extra objects. This is a minimal cleanup for subsequent animation, not a redesign.
+
 ## public/assets/finestcoder-corridor.webp
 
 Original corridor photo supplied by the user, saved unchanged from their open Google photo viewer. The 382 x 510 source matches the supplied image.
