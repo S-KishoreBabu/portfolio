@@ -568,19 +568,17 @@ a.hello-button { text-decoration: none; }
   .personal-project-card { min-height: 0; padding: 16px; }
 }
 
-/* A warm invitation, with the generated chai sketch blending into the paper. */
+/* The full chai sketch sits on a compact white message section. */
 .tea-section {
-  padding: 72px 6.3% 78px;
-  background: radial-gradient(ellipse at 16% 50%, #ead8bd63, transparent 45%), radial-gradient(#9a8b6d1c .65px, transparent .65px), #faf8f1;
-  background-size: auto, 7px 7px, auto;
+  padding: 36px 6.3% 40px;
+  background: #fff;
 }
 .tea-inner { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: center; gap: clamp(42px, 7vw, 100px); max-width: 1210px; margin: 0 auto; }
-.tea-illustration { width: min(100%, 440px); margin: 0 auto; }
-.tea-illustration img { display: block; width: 100%; height: auto; }
-.tea-illustration figcaption { margin-top: 15px; color: #9b7754; text-align: center; font-size: 25px; transform: rotate(-3deg); }
+.tea-illustration { width: min(100%, 420px); margin: 0 auto; overflow: visible; }
+.tea-illustration img { display: block; width: 100%; max-width: 100%; height: auto; object-fit: contain; }
+.tea-illustration figcaption { margin-top: 10px; color: #9b7754; text-align: center; font-size: 25px; transform: rotate(-3deg); }
 .tea-message { min-width: 0; }
-.tea-eyebrow { color: #8b806d; font-size: 9px; letter-spacing: .8px; }
-.tea-message h2 { margin: 13px 0 13px; color: #3f493f; font: 500 clamp(32px, 3.5vw, 46px)/1.24 'DM Sans', sans-serif; letter-spacing: -1.9px; }
+.tea-message h2 { margin: 0 0 22px; color: #3f493f; font: 500 clamp(32px, 3.5vw, 46px)/1.24 'DM Sans', sans-serif; letter-spacing: -1.9px; }
 .tea-heading-dot { color: #a57c50; }
 .tea-word-visual { display: inline-grid; align-items: baseline; vertical-align: baseline; line-height: 1.65; }
 .tea-word-measure,
@@ -592,7 +590,6 @@ a.hello-button { text-decoration: none; }
 .tea-word-visual > :lang(ml) { font-family: 'Noto Sans Malayalam', sans-serif; font-size: .9em; letter-spacing: -.6px; }
 .tea-word-visual > :lang(te) { font-family: 'Noto Sans Telugu', sans-serif; font-size: .9em; letter-spacing: 0; }
 .tea-word-visual > :lang(kn) { font-family: 'Noto Sans Kannada', sans-serif; font-size: .9em; letter-spacing: 0; }
-.tea-intro { margin: 0 0 25px; color: #7c8176; font-size: 12px; line-height: 1.7; }
 .tea-form { display: grid; gap: 18px; }
 .tea-form-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 17px; }
 .tea-form label { display: grid; gap: 8px; min-width: 0; color: #65705e; font-size: 11px; font-weight: 500; }
@@ -611,9 +608,9 @@ a.hello-button { text-decoration: none; }
 .tea-form-note { color: #989c8f; font-size: 10px; }
 @keyframes tea-word-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @media (max-width: 760px) {
-  .tea-section { padding: 44px 7% 54px; }
-  .tea-inner { grid-template-columns: 1fr; gap: 35px; max-width: 530px; }
-  .tea-illustration { width: min(76vw, 310px); }
+  .tea-section { padding: 28px 7% 34px; }
+  .tea-inner { grid-template-columns: 1fr; gap: 24px; max-width: 530px; }
+  .tea-illustration { width: min(72vw, 290px); }
   .tea-illustration figcaption { margin-top: 7px; font-size: 23px; }
   .tea-message h2 { font-size: clamp(32px, 7vw, 42px); letter-spacing: -1.5px; }
   .tea-form input,
@@ -621,7 +618,6 @@ a.hello-button { text-decoration: none; }
 }
 @media (max-width: 420px) {
   .tea-form-row { grid-template-columns: 1fr; gap: 18px; }
-  .tea-eyebrow { font-size: 8px; }
 }
 
 /* Final contact panel: warm paper with soft sage and pencil accents. */
