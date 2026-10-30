@@ -563,6 +563,93 @@ function PersonalProjects() {
   );
 }
 
+const teaWords = [
+  { text: 'தேநீர்', language: 'ta' },
+  { text: 'चाय', language: 'hi' },
+  { text: 'ചായ', language: 'ml' },
+  { text: 'చాయ్', language: 'te' },
+  { text: 'ಚಹಾ', language: 'kn' },
+  { text: 'tea', language: 'en' },
+];
+
+function RotatingTeaWord() {
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let timer;
+    const syncAnimation = () => {
+      window.clearInterval(timer);
+      if (!preference.matches) {
+        timer = window.setInterval(() => setWordIndex(index => (index + 1) % teaWords.length), 3000);
+      }
+    };
+    syncAnimation();
+    preference.addEventListener('change', syncAnimation);
+    return () => {
+      window.clearInterval(timer);
+      preference.removeEventListener('change', syncAnimation);
+    };
+  }, []);
+
+  const word = teaWords[wordIndex];
+  return (
+    <span className="tea-word">
+      <span className="sr-only">tea.</span>
+      <span className="tea-word-visual" aria-hidden="true">
+        {teaWords.map(item => <span className="tea-word-measure" lang={item.language} key={item.language}>{item.text}.</span>)}
+        <span className="tea-word-current" lang={word.language} key={`current-${word.language}`}>{word.text}<span className="tea-heading-dot">.</span></span>
+      </span>
+    </span>
+  );
+}
+
+function TeaMessageSection() {
+  const openEmailDraft = event => {
+    event.preventDefault();
+    const fields = new FormData(event.currentTarget);
+    const name = fields.get('name').trim();
+    const email = fields.get('email').trim();
+    const message = fields.get('message').trim();
+    if (!name || !message) {
+      const emptyField = event.currentTarget.elements.namedItem(!name ? 'name' : 'message');
+      emptyField.setCustomValidity('Please enter more than just spaces.');
+      emptyField.reportValidity();
+      return;
+    }
+    const subject = encodeURIComponent(`Let's talk over tea - ${name}`);
+    const body = encodeURIComponent(`Hi Kishorebabu,\n\n${message}\n\n${name}\n${email}`);
+    window.location.assign(`mailto:${profile.email}?subject=${subject}&body=${body}`);
+  };
+
+  return (
+    <section className="tea-section" aria-labelledby="tea-heading">
+      <div className="tea-inner">
+        <figure className="tea-illustration">
+          <img src="/assets/chai-conversation.png" alt="A colored-pencil doodle of two hands raising glasses of steaming chai" width="1254" height="1254" loading="lazy" />
+          <figcaption className="handwritten">a little chai, a little conversation.</figcaption>
+        </figure>
+        <div className="tea-message">
+          <span className="tea-eyebrow pixel">GOOD CONVERSATIONS START SOMEWHERE</span>
+          <h2 id="tea-heading">Let’s talk over a<br />cup of <RotatingTeaWord /></h2>
+          <p className="tea-intro">An idea, a question, or just a hello. I’d love to hear it.</p>
+          <form className="tea-form" onSubmit={openEmailDraft}>
+            <div className="tea-form-row">
+              <label htmlFor="tea-name">Your name<input id="tea-name" name="name" autoComplete="name" placeholder="What should I call you?" maxLength={100} onInput={event => event.currentTarget.setCustomValidity('')} required /></label>
+              <label htmlFor="tea-email">Email address<input id="tea-email" name="email" type="email" autoComplete="email" placeholder="you@example.com" maxLength={254} required /></label>
+            </div>
+            <label htmlFor="tea-message">Your message<textarea id="tea-message" name="message" placeholder="What’s on your mind?" rows={4} maxLength={5000} onInput={event => event.currentTarget.setCustomValidity('')} required /></label>
+            <div className="tea-form-footer">
+              <button className="tea-send-button" type="submit">Open email draft<Arrow /></button>
+              <span className="tea-form-note">Opens in your email app.</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 const contactLinks = [
   { label: 'GitHub', value: 'S-KishoreBabu', href: 'https://github.com/S-KishoreBabu', icon: 'github', external: true },
   { label: 'LinkedIn', value: 'Kishore Babu S', href: 'https://www.linkedin.com/in/kishorebabu-s-3a0186263', icon: 'linkedin', external: true },
@@ -708,6 +795,7 @@ function App() {
       <TechnologyStack />
       <ProjectSection />
       <PersonalProjects />
+      <TeaMessageSection />
       <ContactSection />
     </main>
   );
