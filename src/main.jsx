@@ -57,6 +57,7 @@ function PhotoHeart() {
   const [liked, setLiked] = useState(false);
   const outline = 'M2 0H4V1H5V0H7V1H8V2H9V5H8V6H7V7H6V8H5V9H4V8H3V7H2V6H1V5H0V2H1V1H2Z';
   const inside = 'M2 1H4V2H5V1H7V2H8V5H7V6H6V7H5V8H4V7H3V6H2V5H1V2H2Z';
+  const hollowOutline = 'M2.25 .25H3.75V1.25H5.25V.25H6.75V1.25H7.75V2.25H8.75V4.75H7.75V5.75H6.75V6.75H5.75V7.75H4.75V8.75H4.25V7.75H3.25V6.75H2.25V5.75H1.25V4.75H.25V2.25H1.25V1.25H2.25Z';
 
   return (
     <button
@@ -68,12 +69,12 @@ function PhotoHeart() {
       onClick={() => setLiked(current => !current)}
     >
       <svg viewBox="0 0 9 9" width="18" height="18" shapeRendering="crispEdges" aria-hidden="true">
-        <path d={`${outline} ${inside}`} fill="currentColor" fillRule="evenodd" />
-        {liked && <>
+        {liked ? <>
+          <path d={`${outline} ${inside}`} fill="currentColor" fillRule="evenodd" />
           <path d={inside} fill="#ef4c5b" />
           <path d="M7 3H8V5H7V6H6V7H5V8H4V7H5V6H6V5H7Z" fill="#c92c40" />
           <path d="M2 2H4V3H2ZM1 3H2V4H1Z" fill="#ffafb6" />
-        </>}
+        </> : <path d={hollowOutline} fill="none" stroke="currentColor" strokeWidth=".5" strokeLinejoin="miter" />}
       </svg>
     </button>
   );
@@ -821,7 +822,7 @@ function App() {
             <figure className="polaroid polaroid-front">
               <div className="tape" aria-hidden="true" />
               <div className="photo-window"><img src={profile.portrait} alt="AI-generated portrait based on my reference photos" fetchPriority="high" width="1086" height="1448" /></div>
-              <figcaption><span className="handwritten">Hey, I’m {profile.name} <PhotoHeart /></span><span className="photo-index pixel">001</span></figcaption>
+              <figcaption><span className="handwritten">Hey, I’m {profile.name}</span><PhotoHeart /></figcaption>
             </figure>
             </div>
             <div className="portrait-label pixel"><span className="label-cross">✦</span> HUMAN, AFTER ALL.</div>
