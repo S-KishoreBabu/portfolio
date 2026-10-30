@@ -19,6 +19,7 @@ Create a production build with `npm run build`, or preview it with `npm run prev
 - A looping technology carousel that pauses on hover.
 - A company project table with detailed project modals.
 - A personal projects section for the Tokenizer, LeetCode Grid Viewer, and React Component Library.
+- A closing social and contact section with a generated pencil-scribble portrait, profile links, email, and location.
 - Reduced-motion support and responsive layouts.
 
 ## Personalize

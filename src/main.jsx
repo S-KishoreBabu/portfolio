@@ -457,6 +457,81 @@ function PersonalProjects() {
   );
 }
 
+const contactLinks = [
+  { label: 'GitHub', value: 'S-KishoreBabu', href: 'https://github.com/S-KishoreBabu', icon: 'github', external: true },
+  { label: 'LinkedIn', value: 'Kishore Babu S', href: 'https://www.linkedin.com/in/kishorebabu-s-3a0186263', icon: 'linkedin', external: true },
+  { label: 'LeetCode', value: 'Ukq3azNqMM', href: 'https://leetcode.com/u/Ukq3azNqMM/', icon: 'leetcode', external: true },
+  { label: 'Email', value: 's.kishorebabu8@gmail.com', href: 'mailto:s.kishorebabu8@gmail.com', icon: 'email' },
+  { label: 'Location', value: 'Coimbatore, Tamil Nadu, India', href: 'https://maps.google.com/?q=Coimbatore%2C%20Tamil%20Nadu%2C%20India', icon: 'location', external: true },
+];
+
+function ContactIcon({ type }) {
+  const brandColors = { github: '181717', linkedin: '0A66C2', leetcode: 'FFA116' };
+  if (type === 'github' || type === 'leetcode') {
+    return <img src={`https://cdn.simpleicons.org/${type}/${brandColors[type]}`} alt="" />;
+  }
+  if (type === 'linkedin') {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#0A66C2" d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z" />
+      </svg>
+    );
+  }
+  if (type === 'email') {
+    return <img src="https://cdn.simpleicons.org/gmail/EA4335" alt="" />;
+  }
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      {type === 'email' && <>
+        <path fill="#4285F4" d="M4 7.4v10.1c0 .8.6 1.5 1.4 1.5h2.5V9.6L4 7.4Z" />
+        <path fill="#34A853" d="M16.1 9.6V19h2.5c.8 0 1.4-.7 1.4-1.5V7.4l-3.9 2.2Z" />
+        <path fill="#FBBC04" d="M7.9 9.6V19h8.2V9.6L12 12.5 7.9 9.6Z" />
+        <path fill="#EA4335" d="M5.4 5h13.2C19.4 5 20 5.7 20 6.5v.9l-8 5.6-8-5.6v-.9C4 5.7 4.6 5 5.4 5Z" />
+      </>}
+      {type === 'location' && <>
+        <path fill="#DB6B52" d="M12 2.5a7 7 0 0 0-7 7c0 5.2 7 12 7 12s7-6.8 7-12a7 7 0 0 0-7-7Zm0 9.7a2.7 2.7 0 1 1 0-5.4 2.7 2.7 0 0 1 0 5.4Z" />
+      </>}
+    </svg>
+  );
+}
+
+function ContactSection() {
+  return (
+    <section className="contact-section" aria-labelledby="contact-heading">
+      <div className="contact-inner">
+        <div className="contact-portrait-wrap">
+          <figure className="contact-portrait-card">
+            <img src="/assets/contact-scribble.png" alt="A childlike pencil and colored-pencil portrait of Kishorebabu" loading="lazy" />
+            <figcaption className="pixel">A LITTLE SKETCH OF ME</figcaption>
+          </figure>
+          <span className="contact-doodle contact-doodle-one" aria-hidden="true">~</span>
+          <svg className="contact-doodle contact-doodle-two" viewBox="0 0 80 48" aria-hidden="true"><path d="M3 30c14-24 19 14 33-7S59 2 76 17M13 39c16-16 22 7 34-3" /></svg>
+        </div>
+        <div className="contact-copy">
+          <span className="contact-eyebrow pixel">FIND ME AROUND THE INTERNET</span>
+          <h2 id="contact-heading">Let’s connect<span>.</span></h2>
+          <p className="contact-intro">Have a question, an idea, or just want to say hello? Find me here.</p>
+          <nav className="contact-links" aria-label="Social profiles and contact details">
+            {contactLinks.map(link => (
+              <a
+                className="contact-link"
+                href={link.href}
+                key={link.label}
+                target={link.external ? '_blank' : undefined}
+                rel={link.external ? 'noopener noreferrer' : undefined}
+              >
+                <span className={`contact-link-icon contact-link-icon-${link.icon}`}><ContactIcon type={link.icon} /></span>
+                <span className="contact-link-copy"><span className="contact-link-label">{link.label}</span><span className="contact-link-value">{link.value}</span></span>
+                {link.external && <span className="contact-link-arrow" aria-hidden="true">↗</span>}
+              </a>
+            ))}
+          </nav>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function App() {
   const sky = useLivingSky();
   const [cardsReady, setCardsReady] = useState(false);
@@ -480,8 +555,10 @@ function App() {
       <div className="grain" aria-hidden="true" />
       <div className="page-shell">
         <header className="page-top">
-          <span className="wordmark" aria-label="Personal portfolio">a work in progress<span className="wordmark-dot">.</span></span>
-          <span className="edition pixel">PERSONAL PORTFOLIO <span className="edition-star">✦</span> VOL. 01</span>
+          <a className="cv-download-button" href="/assets/Kishorebabu-S-CV.pdf" download="Kishorebabu-S-CV.pdf">
+            <span>Download CV</span>
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.5v9m0 0 3.5-3.5M10 11.5 6.5 8M3.5 13.5v3h13v-3" /></svg>
+          </a>
         </header>
 
         <section className="hero" aria-labelledby="hero-heading">
@@ -525,6 +602,7 @@ function App() {
       <TechnologyStack />
       <ProjectSection />
       <PersonalProjects />
+      <ContactSection />
     </main>
   );
 }
