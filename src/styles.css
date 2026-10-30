@@ -434,28 +434,23 @@ a.hello-button { text-decoration: none; }
   letter-spacing: .5px;
 }
 .projects-inner > h2 span { color: #aaa99f; }
-.projects-table-wrap { width: 100%; overflow-x: auto; border: 1px solid #ffffffd4; border-radius: 13px; background: #ffffff38; box-shadow: 0 14px 42px #33414a12, 0 1px 0 #ffffffbf inset; backdrop-filter: blur(9px); }
+.projects-table-wrap { width: 100%; overflow: hidden; border: 1px solid #ffffffd4; border-radius: 13px; background: #ffffffc4; box-shadow: 0 14px 42px #33414a12, 0 1px 0 #ffffffbf inset; backdrop-filter: blur(9px); }
 .projects-table {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
   text-align: left;
 }
-.projects-table td:first-child { padding-left: 0; width: 25%; }
-.projects-table td:nth-child(2) { width: 28%; }
-.projects-table td:nth-child(3) { width: 35%; }
-.projects-table td:last-child { width: 12%; padding-right: 0; }
-.projects-table td {
-  padding: 20px 14px;
-  border-bottom: 1px solid #ffffffc7;
+.projects-table .project-summary-row > td:first-child { width: 29%; padding-left: 28px; }
+.projects-table .project-summary-row > td:nth-child(2) { width: 29%; }
+.projects-table .project-summary-row > td:last-child { width: 42%; padding-right: 28px; }
+.projects-table .project-summary-row > td {
+  padding: 24px 20px;
   vertical-align: middle;
 }
-.projects-table tbody tr { transition: background-color .2s ease; }
-.projects-table tbody tr.project-summary-row { background: #ffffffb8; cursor: pointer; }
-.projects-table tbody tr.project-summary-row:hover,
-.projects-table tbody tr.project-summary-row.is-open { background: #fffffff0; }
+.project-group + .project-group .project-summary-row > td { border-top: 1px solid #ffffffc7; }
+.projects-table tbody tr.project-summary-row { cursor: pointer; }
 .projects-table tbody tr.project-summary-row:focus-visible { outline: 2px solid #71897c; outline-offset: -3px; }
-.projects-table tbody tr:last-child td { border-bottom: 0; }
 .project-name-cell { min-width: 0; }
 .project-name {
   display: block;
@@ -464,8 +459,7 @@ a.hello-button { text-decoration: none; }
   font-weight: 600;
   line-height: 1.45;
 }
-.project-companies,
-.project-dialog-companies { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; }
+.project-companies { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; }
 .project-companies { margin-top: 9px; min-height: 22px; }
 .project-company-logo { display: block; object-fit: contain; }
 .project-company-logo-finestcoder { width: 68px; height: 20px; }
@@ -483,12 +477,11 @@ a.hello-button { text-decoration: none; }
   letter-spacing: .25px;
 }
 .project-description { display: block; color: #66665e; font-size: 12px; }
-.project-toggle-indicator { display: grid; width: 31px; height: 31px; margin-left: auto; place-items: center; border: 1px solid #dfe6e2; border-radius: 50%; background: #ffffffbf; color: #65766d; transition: transform .25s, background-color .25s; }
-.project-toggle-indicator .project-arrow { width: 16px; height: 16px; transform: rotate(90deg); transition: transform .25s; }
-.project-summary-row.is-open .project-toggle-indicator { background: #eaf0ec; }
-.project-summary-row.is-open .project-toggle-indicator .project-arrow { transform: rotate(-90deg); }
-.project-accordion-panel-row td { width: 100% !important; padding: 0; border-bottom: 1px solid #ffffffc7; background: #ffffffe0; }
-.project-accordion-panel { display: grid; grid-template-columns: minmax(180px, .8fr) minmax(0, 1.6fr); gap: 18px 34px; padding: 23px 28px 26px; animation: project-panel-in .24s ease both; }
+.projects-table .project-accordion-panel-row > td { padding: 0; border: 0; }
+.project-accordion-collapse { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows .44s cubic-bezier(.22, .68, .22, 1), opacity .3s ease; }
+.project-accordion-collapse.is-open { grid-template-rows: 1fr; opacity: 1; }
+.project-accordion-clip { min-height: 0; overflow: hidden; }
+.project-accordion-panel { display: grid; grid-template-columns: minmax(180px, .8fr) minmax(0, 1.6fr); gap: 22px 34px; padding: 8px 28px 28px; }
 .project-accordion-overview p { margin: 0; color: #595f5b; font-size: 12px; line-height: 1.7; }
 .project-accordion-companies { display: flex; align-items: center; gap: 12px; margin-top: 15px; }
 .project-accordion-details { display: grid; gap: 7px; margin: 0; padding-left: 17px; color: #595f5b; font-size: 11px; line-height: 1.6; }
@@ -496,30 +489,29 @@ a.hello-button { text-decoration: none; }
 .project-accordion-technologies { grid-column: 1 / -1; padding-top: 14px; border-top: 1px solid #dce4dfb8; }
 .project-accordion-tags { display: flex; flex-wrap: wrap; gap: 7px; }
 .project-accordion-tags span { padding: 5px 9px; border: 1px solid #dfe6e2b8; border-radius: 999px; background: #ffffffb8; color: #56635b; font-size: 10px; }
-@keyframes project-panel-in { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
 @media (max-width: 760px) {
   .projects-section { padding: 34px 7% 54px; }
   .projects-inner > h2 { font-size: 25px; margin-bottom: 18px; }
   .projects-table,
   .projects-table tbody { display: block; }
-  .projects-table tbody tr {
+  .projects-table .project-summary-row {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr);
     align-items: start;
-    gap: 9px 12px;
-    padding: 17px 0;
-    border-bottom: 1px solid #eeeeea;
+    gap: 13px;
+    padding: 22px;
   }
-  .projects-table tbody tr:last-child { border-bottom: 0; }
-  .projects-table td { width: auto !important; padding: 0; border: 0; }
+  .project-group + .project-group { border-top: 1px solid #ffffffc7; }
+  .projects-table .project-summary-row > td,
+  .projects-table .project-summary-row > td:first-child,
+  .projects-table .project-summary-row > td:last-child { display: block; width: auto; padding: 0; border: 0; }
   .projects-table td.project-name-cell { grid-column: 1; grid-row: 1; }
-  .projects-table td.project-action-cell { grid-column: 2; grid-row: 1; }
   .projects-table td.project-stack-cell { grid-column: 1 / -1; grid-row: 2; }
   .projects-table td.project-description-cell { grid-column: 1 / -1; grid-row: 3; }
   .projects-table tbody tr.project-accordion-panel-row { display: block; padding: 0; }
   .projects-table tbody tr.project-accordion-panel-row td { display: block; }
-  .project-accordion-panel { grid-template-columns: 1fr; gap: 18px; padding: 19px 17px 22px; }
+  .project-accordion-panel { grid-template-columns: 1fr; gap: 20px; padding: 0 22px 24px; }
   .project-accordion-technologies { grid-column: auto; }
 }
 

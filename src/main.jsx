@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles.css';
 import LivingSky, { SkyControls, useLivingSky } from './sky/LivingSky.jsx';
@@ -286,11 +286,28 @@ const projects = [
 
 function ProjectSection() {
   const [openProject, setOpenProject] = useState(null);
+  const closeTimer = useRef(null);
+
+  useEffect(() => () => window.clearTimeout(closeTimer.current), []);
+
+  const openOnHover = (event, name) => {
+    if (event.pointerType !== 'mouse') return;
+    window.clearTimeout(closeTimer.current);
+    setOpenProject(name);
+  };
+  const closeOnLeave = (event, name) => {
+    if (event.pointerType !== 'mouse') return;
+    window.clearTimeout(closeTimer.current);
+    closeTimer.current = window.setTimeout(() => {
+      setOpenProject(current => current === name ? null : current);
+    }, 120);
+  };
 
   const toggleProject = name => setOpenProject(current => current === name ? null : name);
   const handleProjectKeyDown = (event, name) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
+      window.clearTimeout(closeTimer.current);
       toggleProject(name);
     }
   };
@@ -301,65 +318,74 @@ function ProjectSection() {
         <h2 id="projects-heading">Projects<span>.</span></h2>
         <div className="projects-table-wrap">
           <table className="projects-table" aria-label="Projects, main technology stacks, descriptions, and details">
-            <tbody>
-              {projects.map(project => {
-                const isOpen = openProject === project.name;
-                const panelId = `project-details-${project.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
-                return (
-                  <React.Fragment key={project.name}>
-                    <tr
-                      className={`project-summary-row${isOpen ? ' is-open' : ''}`}
-                      tabIndex={0}
-                      aria-expanded={isOpen}
-                      aria-controls={panelId}
-                      onClick={() => toggleProject(project.name)}
-                      onKeyDown={event => handleProjectKeyDown(event, project.name)}
-                    >
-                      <td className="project-name-cell">
-                        <span className="project-name">{project.name}</span>
-                        <span className="project-companies" aria-label={`Worked on at ${project.companies.map(company => company.name).join(' and ')}`}>
-                          {project.companies.map(company => (
-                            <img
-                              className={`project-company-logo project-company-logo-${company.className}`}
-                              key={company.name}
-                              src={company.logo}
-                              alt={company.name}
-                              title={company.name}
-                              loading="lazy"
-                            />
-                          ))}
-                        </span>
-                      </td>
-                      <td className="project-stack-cell" aria-label={`Main technologies: ${project.stack.join(', ')}`}>
-                        <div className="project-stack-logos">
-                          {project.stack.map(name => {
-                            const technology = technologies.find(item => item.name === name);
-                            return (
-                              <span className="project-stack-item" key={name}>
-                                <img
-                                  src={technology.icon === 'amazonaws' ? '/assets/aws-mark.svg' : `https://cdn.simpleicons.org/${technology.icon}/171717`}
-                                  alt=""
-                                  title={name}
-                                  loading="lazy"
-                                />
-                                <span>{name}</span>
-                              </span>
-                            );
-                          })}
-                        </div>
-                      </td>
-                      <td className="project-description-cell">
-                        <span className="project-category">{project.category}</span>
-                        <span className="project-description">{project.description}</span>
-                      </td>
-                      <td className="project-action-cell">
-                        <span className="project-toggle-indicator" aria-hidden="true"><Arrow className="project-arrow" /></span>
-                      </td>
-                    </tr>
-                    {isOpen && (
-                      <tr className="project-accordion-panel-row">
-                        <td colSpan={4}>
-                          <div className="project-accordion-panel" id={panelId} role="region" aria-label={`${project.name} details`}>
+            {projects.map(project => {
+              const isOpen = openProject === project.name;
+              const panelId = `project-details-${project.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+              return (
+                <tbody
+                  className="project-group"
+                  key={project.name}
+                  onPointerEnter={event => openOnHover(event, project.name)}
+                  onPointerLeave={event => closeOnLeave(event, project.name)}
+                >
+                  <tr
+                    className={`project-summary-row${isOpen ? ' is-open' : ''}`}
+                    tabIndex={0}
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
+                    onClick={() => {
+                      window.clearTimeout(closeTimer.current);
+                      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+                        setOpenProject(project.name);
+                      } else {
+                        toggleProject(project.name);
+                      }
+                    }}
+                    onKeyDown={event => handleProjectKeyDown(event, project.name)}
+                  >
+                    <td className="project-name-cell">
+                      <span className="project-name">{project.name}</span>
+                      <span className="project-companies" aria-label={`Worked on at ${project.companies.map(company => company.name).join(' and ')}`}>
+                        {project.companies.map(company => (
+                          <img
+                            className={`project-company-logo project-company-logo-${company.className}`}
+                            key={company.name}
+                            src={company.logo}
+                            alt={company.name}
+                            title={company.name}
+                            loading="lazy"
+                          />
+                        ))}
+                      </span>
+                    </td>
+                    <td className="project-stack-cell" aria-label={`Main technologies: ${project.stack.join(', ')}`}>
+                      <div className="project-stack-logos">
+                        {project.stack.map(name => {
+                          const technology = technologies.find(item => item.name === name);
+                          return (
+                            <span className="project-stack-item" key={name}>
+                              <img
+                                src={technology.icon === 'amazonaws' ? '/assets/aws-mark.svg' : `https://cdn.simpleicons.org/${technology.icon}/171717`}
+                                alt=""
+                                title={name}
+                                loading="lazy"
+                              />
+                              <span>{name}</span>
+                            </span>
+                          );
+                        })}
+                      </div>
+                    </td>
+                    <td className="project-description-cell">
+                      <span className="project-category">{project.category}</span>
+                      <span className="project-description">{project.description}</span>
+                    </td>
+                  </tr>
+                  <tr className="project-accordion-panel-row">
+                    <td colSpan={3}>
+                      <div className={`project-accordion-collapse${isOpen ? ' is-open' : ''}`} id={panelId} role="region" aria-label={`${project.name} details`} aria-hidden={!isOpen} inert={!isOpen}>
+                        <div className="project-accordion-clip">
+                          <div className="project-accordion-panel">
                             <div className="project-accordion-overview">
                               <span className="project-category">ABOUT THIS PROJECT</span>
                               <p>{project.description}</p>
@@ -382,13 +408,13 @@ function ProjectSection() {
                               </div>
                             </div>
                           </div>
-                        </td>
-                      </tr>
-                    )}
-                  </React.Fragment>
-                );
-              })}
-            </tbody>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              );
+            })}
           </table>
         </div>
       </div>
