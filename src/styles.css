@@ -111,7 +111,7 @@ a.hello-button { text-decoration: none; }
   .role-font-handwritten { font-size: 24px; }
 }
 
-/* The changing role and introduction share one flowing paragraph. */
+/* The role and introduction stay in one paragraph, on separate lines. */
 .hero-introduction {
   white-space: normal;
   max-width: 500px;
@@ -453,7 +453,7 @@ a.hello-button { text-decoration: none; }
   table-layout: fixed;
   text-align: left;
 }
-.projects-table .project-logo-column { width: 80px; }
+.projects-table .project-logo-column { width: 72px; }
 .projects-table .project-name-column { width: 26%; }
 .projects-table .project-stack-column { width: 27%; }
 .projects-table .project-summary-row > .project-logo-cell { padding-left: 28px; padding-right: 0; }
@@ -466,8 +466,8 @@ a.hello-button { text-decoration: none; }
 .projects-table tbody tr.project-summary-row { cursor: pointer; }
 .projects-table tbody tr.project-summary-row:focus-visible { outline: 2px solid #71897c; outline-offset: -3px; }
 .project-name-cell { min-width: 0; }
-.project-logo-mark { display: grid; width: 52px; height: 52px; place-items: center; border: 1px solid #e1e7e7; border-radius: 12px; background: #ffffffdb; overflow: hidden; }
-.project-logo-mark img { display: block; width: 40px; height: 40px; object-fit: contain; }
+.project-logo-mark { display: grid; width: 44px; height: 44px; place-items: center; border: 1px solid #e1e7e7; border-radius: 6px; background: #ffffffdb; overflow: hidden; }
+.project-logo-mark img { display: block; width: 34px; height: 34px; object-fit: contain; }
 .project-name {
   display: block;
   color: #373731;
@@ -497,7 +497,7 @@ a.hello-button { text-decoration: none; }
 .project-accordion-collapse { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows .44s cubic-bezier(.22, .68, .22, 1), opacity .3s ease; }
 .project-accordion-collapse.is-open { grid-template-rows: 1fr; opacity: 1; }
 .project-accordion-clip { min-height: 0; overflow: hidden; }
-.project-accordion-panel { display: grid; grid-template-columns: minmax(180px, .8fr) minmax(0, 1.6fr); gap: 22px 34px; padding: 8px 28px 28px; border-bottom: 1px solid #d4ded9; }
+.project-accordion-panel { display: grid; grid-template-columns: minmax(180px, .8fr) minmax(0, 1.6fr); gap: 22px 34px; padding: 8px 28px 28px; border-bottom: 1px solid #fff; }
 .project-accordion-overview p { margin: 0; color: #595f5b; font-size: 12px; line-height: 1.7; }
 .project-accordion-companies { display: flex; align-items: center; gap: 12px; margin-top: 15px; }
 .project-accordion-details { display: grid; gap: 7px; margin: 0; padding-left: 17px; color: #595f5b; font-size: 11px; line-height: 1.6; }
@@ -514,7 +514,7 @@ a.hello-button { text-decoration: none; }
   .projects-table colgroup { display: none; }
   .projects-table .project-summary-row {
     display: grid;
-    grid-template-columns: 52px minmax(0, 1fr);
+    grid-template-columns: 44px minmax(0, 1fr);
     align-items: start;
     gap: 13px;
     padding: 22px;
@@ -768,6 +768,7 @@ a.hello-button { text-decoration: none; }
 .sky-page,
 .page-shell { min-height: 68svh; }
 .hero { padding-top: 50px; padding-bottom: 52px; }
+.page-bottom { justify-content: flex-end; }
 
 @media (max-width: 760px) {
   .hero { gap: 64px; padding: 42px 0 60px; }

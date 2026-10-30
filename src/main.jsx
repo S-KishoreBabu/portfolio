@@ -48,7 +48,7 @@ function RotatingRole({ description }) {
           <span className="role-prefix">I am {role.article}</span>
           <span key={roleIndex} className={`role-text rotating-role role-font-${role.font}`}>{role.title}</span>.
         </span>
-      </span>{' '}{description}
+      </span><br />{description}
     </p>
   );
 }
@@ -438,7 +438,7 @@ function ProjectSection() {
                     onKeyDown={event => handleProjectKeyDown(event, project.name)}
                   >
                     <td className="project-logo-cell">
-                      <span className="project-logo-mark"><img src={project.logo} alt={`${project.logoName} logo`} width="40" height="40" loading="lazy" /></span>
+                      <span className="project-logo-mark"><img src={project.logo} alt={`${project.logoName} logo`} width="34" height="34" loading="lazy" /></span>
                     </td>
                     <td className="project-name-cell">
                       <span className="project-name">{project.name}</span>
@@ -786,7 +786,6 @@ function App() {
 
         <section className="hero" aria-labelledby="hero-heading">
           <div className="hero-copy">
-            <div className="intro-tag"><span className="tag-dot" /><span className="pixel">HEY THERE, WELCOME TO MY SPACE</span></div>
             <h1 id="hero-heading">{profile.greeting}<br /><span className="headline-bottom">{profile.headline}</span></h1>
             <RotatingRole description={profile.description} />
             <a className="hello-button" href={`mailto:${profile.email}`}><span>Let’s talk</span><span className="button-arrow"><Arrow /></span></a>
@@ -815,8 +814,6 @@ function App() {
         </section>
 
         <footer className="page-bottom">
-          <span className="bottom-note">A small space. Endless possibilities.</span>
-          <span className="made-with pixel">MADE OF IDEAS & A LITTLE DAYDREAMING</span>
           <SkyControls sky={sky} />
         </footer>
       </div>
