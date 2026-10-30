@@ -318,6 +318,8 @@ function TechnologyStack() {
 const projects = [
   {
     name: 'Interngo',
+    logo: '/assets/interngo-logo.png',
+    logoName: 'Interngo',
     category: 'Full-Stack Development',
     description: 'An intern management platform for performance tracking, attendance, resources, helpdesk, and analytics.',
     companies: [{ name: 'Finestcoder', logo: '/assets/finestcoder-logo.png', className: 'finestcoder' }],
@@ -333,6 +335,8 @@ const projects = [
   },
   {
     name: 'FC Labs — College Administration Panel',
+    logo: '/assets/fc-labs-logo.svg',
+    logoName: 'FC Labs',
     category: 'Frontend Development',
     description: 'A college administration panel for tracking workshops, trainers, student participation, and learning progress.',
     companies: [
@@ -350,6 +354,8 @@ const projects = [
   },
   {
     name: 'AOKAH',
+    logo: '/assets/aokah-logo.png',
+    logoName: 'AOKAH',
     category: 'AI Engineering',
     description: 'A conversational AI platform that retrieves context about capability centers, projects, milestones, and tasks.',
     companies: [{ name: 'Codingmart Technologies', logo: '/assets/codingmart-logo.png', className: 'codingmart' }],
@@ -399,7 +405,13 @@ function ProjectSection() {
       <div className="projects-inner">
         <h2 id="projects-heading">Projects<span>.</span></h2>
         <div className="projects-table-wrap">
-          <table className="projects-table" aria-label="Projects, main technology stacks, descriptions, and details">
+          <table className="projects-table" aria-label="Project logos, names, main technology stacks, descriptions, and details">
+            <colgroup>
+              <col className="project-logo-column" />
+              <col className="project-name-column" />
+              <col className="project-stack-column" />
+              <col />
+            </colgroup>
             {projects.map(project => {
               const isOpen = openProject === project.name;
               const panelId = `project-details-${project.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
@@ -425,6 +437,9 @@ function ProjectSection() {
                     }}
                     onKeyDown={event => handleProjectKeyDown(event, project.name)}
                   >
+                    <td className="project-logo-cell">
+                      <span className="project-logo-mark"><img src={project.logo} alt={`${project.logoName} logo`} width="40" height="40" loading="lazy" /></span>
+                    </td>
                     <td className="project-name-cell">
                       <span className="project-name">{project.name}</span>
                       <span className="project-companies" aria-label={`Worked on at ${project.companies.map(company => company.name).join(' and ')}`}>
@@ -464,7 +479,7 @@ function ProjectSection() {
                     </td>
                   </tr>
                   <tr className="project-accordion-panel-row">
-                    <td colSpan={3}>
+                    <td colSpan={4}>
                       <div className={`project-accordion-collapse${isOpen ? ' is-open' : ''}`} id={panelId} role="region" aria-label={`${project.name} details`} aria-hidden={!isOpen} inert={!isOpen}>
                         <div className="project-accordion-clip">
                           <div className="project-accordion-panel">

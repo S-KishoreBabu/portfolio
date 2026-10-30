@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <title>FC Labs</title>
+  <g stroke="#2868c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 46V18h17M12 31h14"/>
+    <path d="M53 22c-2-2.8-4.7-4-8-4-7 0-11 5.8-11 14s4 14 11 14c3.3 0 6-1.2 8-4"/>
+  </g>
+</svg>

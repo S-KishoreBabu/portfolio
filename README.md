@@ -17,7 +17,7 @@ Create a production build with `npm run build`, or preview it with `npm run prev
 - A local-time sky that blends morning, day, evening, and night scenes. Cloud and mist movement is limited to the hero.
 - A work-experience timeline with a static sky photo board that changes with the selected lighting and reveals each company's office photos on hover or focus. Finestcoder uses the supplied corridor photo and a reception photo with an AI-added company sign.
 - A looping technology carousel that pauses on hover.
-- A company project table with smoothly expanding details on hover.
+- A company project table with project logos and smoothly expanding details on hover. Interngo and AOKAH use their original brand marks; the blue FC Labs mark is a locally authored SVG.
 - A personal projects section for the Tokenizer, LeetCode Grid Viewer, and React Component Library.
 - A chai message section with a generated scribble illustration and a heading rotating through Tamil, Hindi, Malayalam, Telugu, Kannada, and English. The form opens a draft in the visitor's email app; it does not submit to a server.
 - A closing social and contact section with a generated pencil-scribble portrait, profile links, email, and location.

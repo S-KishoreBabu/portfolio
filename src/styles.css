@@ -453,9 +453,11 @@ a.hello-button { text-decoration: none; }
   table-layout: fixed;
   text-align: left;
 }
-.projects-table .project-summary-row > td:first-child { width: 29%; padding-left: 28px; }
-.projects-table .project-summary-row > td:nth-child(2) { width: 29%; }
-.projects-table .project-summary-row > td:last-child { width: 42%; padding-right: 28px; }
+.projects-table .project-logo-column { width: 80px; }
+.projects-table .project-name-column { width: 26%; }
+.projects-table .project-stack-column { width: 27%; }
+.projects-table .project-summary-row > .project-logo-cell { padding-left: 28px; padding-right: 0; }
+.projects-table .project-summary-row > td:last-child { padding-right: 28px; }
 .projects-table .project-summary-row > td {
   padding: 24px 20px;
   vertical-align: middle;
@@ -464,6 +466,8 @@ a.hello-button { text-decoration: none; }
 .projects-table tbody tr.project-summary-row { cursor: pointer; }
 .projects-table tbody tr.project-summary-row:focus-visible { outline: 2px solid #71897c; outline-offset: -3px; }
 .project-name-cell { min-width: 0; }
+.project-logo-mark { display: grid; width: 52px; height: 52px; place-items: center; border: 1px solid #e1e7e7; border-radius: 12px; background: #ffffffdb; overflow: hidden; }
+.project-logo-mark img { display: block; width: 40px; height: 40px; object-fit: contain; }
 .project-name {
   display: block;
   color: #373731;
@@ -493,12 +497,12 @@ a.hello-button { text-decoration: none; }
 .project-accordion-collapse { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows .44s cubic-bezier(.22, .68, .22, 1), opacity .3s ease; }
 .project-accordion-collapse.is-open { grid-template-rows: 1fr; opacity: 1; }
 .project-accordion-clip { min-height: 0; overflow: hidden; }
-.project-accordion-panel { display: grid; grid-template-columns: minmax(180px, .8fr) minmax(0, 1.6fr); gap: 22px 34px; padding: 8px 28px 28px; }
+.project-accordion-panel { display: grid; grid-template-columns: minmax(180px, .8fr) minmax(0, 1.6fr); gap: 22px 34px; padding: 8px 28px 28px; border-bottom: 1px solid #d4ded9; }
 .project-accordion-overview p { margin: 0; color: #595f5b; font-size: 12px; line-height: 1.7; }
 .project-accordion-companies { display: flex; align-items: center; gap: 12px; margin-top: 15px; }
 .project-accordion-details { display: grid; gap: 7px; margin: 0; padding-left: 17px; color: #595f5b; font-size: 11px; line-height: 1.6; }
 .project-accordion-details li::marker { color: #9b815c; }
-.project-accordion-technologies { grid-column: 1 / -1; padding-top: 14px; border-top: 1px solid #dce4dfb8; }
+.project-accordion-technologies { grid-column: 1 / -1; padding-top: 14px; }
 .project-accordion-tags { display: flex; flex-wrap: wrap; gap: 7px; }
 .project-accordion-tags span { padding: 5px 9px; border: 1px solid #dfe6e2b8; border-radius: 999px; background: #ffffffb8; color: #56635b; font-size: 10px; }
 
@@ -507,9 +511,10 @@ a.hello-button { text-decoration: none; }
   .projects-inner > h2 { font-size: 25px; margin-bottom: 18px; }
   .projects-table,
   .projects-table tbody { display: block; }
+  .projects-table colgroup { display: none; }
   .projects-table .project-summary-row {
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: 52px minmax(0, 1fr);
     align-items: start;
     gap: 13px;
     padding: 22px;
@@ -518,7 +523,8 @@ a.hello-button { text-decoration: none; }
   .projects-table .project-summary-row > td,
   .projects-table .project-summary-row > td:first-child,
   .projects-table .project-summary-row > td:last-child { display: block; width: auto; padding: 0; border: 0; }
-  .projects-table td.project-name-cell { grid-column: 1; grid-row: 1; }
+  .projects-table td.project-logo-cell { grid-column: 1; grid-row: 1; }
+  .projects-table td.project-name-cell { grid-column: 2; grid-row: 1; align-self: center; }
   .projects-table td.project-stack-cell { grid-column: 1 / -1; grid-row: 2; }
   .projects-table td.project-description-cell { grid-column: 1 / -1; grid-row: 3; }
   .projects-table tbody tr.project-accordion-panel-row { display: block; padding: 0; }
