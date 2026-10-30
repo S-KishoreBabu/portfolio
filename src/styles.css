@@ -522,7 +522,7 @@ a.hello-button { text-decoration: none; }
 
 /* Independent tools and experiments */
 .personal-projects-section {
-  padding: 48px 6.3% 76px;
+  padding: 48px 6.3% 32px;
   background: #fff;
 }
 .personal-projects-inner { max-width: 1322px; margin: 0 auto; }
@@ -560,7 +560,7 @@ a.hello-button { text-decoration: none; }
   .personal-project-card:last-child { grid-column: 1 / -1; }
 }
 @media (max-width: 760px) {
-  .personal-projects-section { padding: 36px 7% 54px; }
+  .personal-projects-section { padding: 36px 7% 24px; }
   .personal-projects-heading { margin-bottom: 18px; }
   .personal-projects-heading h2 { font-size: 25px; }
   .personal-projects-grid { grid-template-columns: 1fr; gap: 10px; }
@@ -570,7 +570,7 @@ a.hello-button { text-decoration: none; }
 
 /* The full chai sketch sits on a compact white message section. */
 .tea-section {
-  padding: 36px 6.3% 40px;
+  padding: 20px 6.3% 40px;
   background: #fff;
 }
 .tea-inner { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: center; gap: clamp(42px, 7vw, 100px); max-width: 1210px; margin: 0 auto; }
@@ -610,7 +610,7 @@ a.hello-button { text-decoration: none; }
 .tea-form-note { color: #989c8f; font-size: 10px; }
 @keyframes tea-word-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @media (max-width: 760px) {
-  .tea-section { padding: 28px 7% 34px; }
+  .tea-section { padding: 16px 7% 34px; }
   .tea-inner { grid-template-columns: 1fr; gap: 24px; max-width: 530px; }
   .tea-illustration { width: min(72vw, 290px); }
   .tea-illustration figcaption { margin-top: 7px; font-size: 23px; }
