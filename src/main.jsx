@@ -624,13 +624,15 @@ function TeaMessageSection() {
 
   return (
     <section className="tea-section" aria-labelledby="tea-heading">
+      <div className="tea-heading">
+        <h2 id="tea-heading">Let’s talk over a <span className="tea-heading-ending">cup of <RotatingTeaWord /></span></h2>
+      </div>
       <div className="tea-inner">
         <figure className="tea-illustration">
           <img src="/assets/chai-conversation-v2.png" alt="A complete colored-pencil sketch of two hands raising glasses of steaming chai, with softly drawn sleeve ends" width="1536" height="1024" loading="lazy" />
           <figcaption className="handwritten">a little chai, a little conversation.</figcaption>
         </figure>
         <div className="tea-message">
-          <h2 id="tea-heading">Let’s talk over a<br />cup of <RotatingTeaWord /></h2>
           <form className="tea-form" onSubmit={openEmailDraft}>
             <div className="tea-form-row">
               <label htmlFor="tea-name">Your name<input id="tea-name" name="name" autoComplete="name" placeholder="What should I call you?" maxLength={100} onInput={event => event.currentTarget.setCustomValidity('')} required /></label>
