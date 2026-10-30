@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles.css';
 import LivingSky, { SkyControls, useLivingSky } from './sky/LivingSky.jsx';
@@ -285,14 +285,15 @@ const projects = [
 ];
 
 function ProjectSection() {
-  const [selectedProject, setSelectedProject] = useState(null);
-  const dialogRef = useRef(null);
+  const [openProject, setOpenProject] = useState(null);
 
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (selectedProject && dialog && !dialog.open) dialog.showModal();
-    if (!selectedProject && dialog?.open) dialog.close();
-  }, [selectedProject]);
+  const toggleProject = name => setOpenProject(current => current === name ? null : name);
+  const handleProjectKeyDown = (event, name) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      toggleProject(name);
+    }
+  };
 
   return (
     <section className="projects-section" aria-labelledby="projects-heading">
@@ -301,84 +302,96 @@ function ProjectSection() {
         <div className="projects-table-wrap">
           <table className="projects-table" aria-label="Projects, main technology stacks, descriptions, and details">
             <tbody>
-              {projects.map(project => (
-                <tr key={project.name}>
-                  <td className="project-name-cell">
-                    <span className="project-name">{project.name}</span>
-                    <span className="project-companies" aria-label={`Worked on at ${project.companies.map(company => company.name).join(' and ')}`}>
-                      {project.companies.map(company => (
-                        <img
-                          className={`project-company-logo project-company-logo-${company.className}`}
-                          key={company.name}
-                          src={company.logo}
-                          alt={company.name}
-                          title={company.name}
-                          loading="lazy"
-                        />
-                      ))}
-                    </span>
-                  </td>
-                  <td className="project-stack-cell" aria-label={`Main technologies: ${project.stack.join(', ')}`}>
-                    <div className="project-stack-logos">
-                      {project.stack.map(name => {
-                        const technology = technologies.find(item => item.name === name);
-                        return (
-                          <span className="project-stack-item" key={name}>
+              {projects.map(project => {
+                const isOpen = openProject === project.name;
+                const panelId = `project-details-${project.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+                return (
+                  <React.Fragment key={project.name}>
+                    <tr
+                      className={`project-summary-row${isOpen ? ' is-open' : ''}`}
+                      tabIndex={0}
+                      aria-expanded={isOpen}
+                      aria-controls={panelId}
+                      onClick={() => toggleProject(project.name)}
+                      onKeyDown={event => handleProjectKeyDown(event, project.name)}
+                    >
+                      <td className="project-name-cell">
+                        <span className="project-name">{project.name}</span>
+                        <span className="project-companies" aria-label={`Worked on at ${project.companies.map(company => company.name).join(' and ')}`}>
+                          {project.companies.map(company => (
                             <img
-                              src={technology.icon === 'amazonaws' ? '/assets/aws-mark.svg' : `https://cdn.simpleicons.org/${technology.icon}/171717`}
-                              alt=""
-                              title={name}
+                              className={`project-company-logo project-company-logo-${company.className}`}
+                              key={company.name}
+                              src={company.logo}
+                              alt={company.name}
+                              title={company.name}
                               loading="lazy"
                             />
-                            <span>{name}</span>
-                          </span>
-                        );
-                      })}
-                    </div>
-                  </td>
-                  <td className="project-description-cell">
-                    <span className="project-category">{project.category}</span>
-                    <span className="project-description">{project.description}</span>
-                  </td>
-                  <td className="project-action-cell">
-                    <button type="button" className="project-view-button" onClick={() => setSelectedProject(project)}>
-                      <span>View more</span><Arrow className="project-arrow" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
+                          ))}
+                        </span>
+                      </td>
+                      <td className="project-stack-cell" aria-label={`Main technologies: ${project.stack.join(', ')}`}>
+                        <div className="project-stack-logos">
+                          {project.stack.map(name => {
+                            const technology = technologies.find(item => item.name === name);
+                            return (
+                              <span className="project-stack-item" key={name}>
+                                <img
+                                  src={technology.icon === 'amazonaws' ? '/assets/aws-mark.svg' : `https://cdn.simpleicons.org/${technology.icon}/171717`}
+                                  alt=""
+                                  title={name}
+                                  loading="lazy"
+                                />
+                                <span>{name}</span>
+                              </span>
+                            );
+                          })}
+                        </div>
+                      </td>
+                      <td className="project-description-cell">
+                        <span className="project-category">{project.category}</span>
+                        <span className="project-description">{project.description}</span>
+                      </td>
+                      <td className="project-action-cell">
+                        <span className="project-toggle-indicator" aria-hidden="true"><Arrow className="project-arrow" /></span>
+                      </td>
+                    </tr>
+                    {isOpen && (
+                      <tr className="project-accordion-panel-row">
+                        <td colSpan={4}>
+                          <div className="project-accordion-panel" id={panelId} role="region" aria-label={`${project.name} details`}>
+                            <div className="project-accordion-overview">
+                              <span className="project-category">ABOUT THIS PROJECT</span>
+                              <p>{project.description}</p>
+                              <div className="project-accordion-companies">
+                                {project.companies.map(company => (
+                                  <img key={company.name} className={`project-company-logo project-company-logo-${company.className}`} src={company.logo} alt={company.name} title={company.name} />
+                                ))}
+                              </div>
+                            </div>
+                            <div className="project-accordion-work">
+                              <span className="project-category">WHAT I WORKED ON</span>
+                              <ul className="project-accordion-details">
+                                {project.details.map(detail => <li key={detail}>{detail}</li>)}
+                              </ul>
+                            </div>
+                            <div className="project-accordion-technologies">
+                              <span className="project-category">TECHNOLOGIES</span>
+                              <div className="project-accordion-tags">
+                                {project.technologies.map(name => <span key={name}>{name}</span>)}
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    )}
+                  </React.Fragment>
+                );
+              })}
             </tbody>
           </table>
         </div>
       </div>
-
-      <dialog
-        className="project-dialog"
-        ref={dialogRef}
-        aria-labelledby="project-dialog-title"
-        onClose={() => setSelectedProject(null)}
-        onClick={event => { if (event.target === dialogRef.current) dialogRef.current.close(); }}
-      >
-        {selectedProject && (
-          <div className="project-dialog-content">
-            <button className="project-dialog-close" type="button" aria-label="Close project details" onClick={() => setSelectedProject(null)}>×</button>
-            <span className="project-dialog-category pixel">{selectedProject.category}</span>
-            <h3 id="project-dialog-title">{selectedProject.name}</h3>
-            <div className="project-dialog-companies">
-              {selectedProject.companies.map(company => (
-                <img key={company.name} className={`project-company-logo project-company-logo-${company.className}`} src={company.logo} alt={company.name} />
-              ))}
-            </div>
-            <p className="project-dialog-description">{selectedProject.description}</p>
-            <ul className="project-detail-list">
-              {selectedProject.details.map(detail => <li key={detail}>{detail}</li>)}
-            </ul>
-            <div className="project-tech-list" aria-label="Technologies used">
-              {selectedProject.technologies.map(technology => <span key={technology}>{technology}</span>)}
-            </div>
-          </div>
-        )}
-      </dialog>
     </section>
   );
 }
