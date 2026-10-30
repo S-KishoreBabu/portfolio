@@ -53,6 +53,32 @@ function RotatingRole({ description }) {
   );
 }
 
+function PhotoHeart() {
+  const [liked, setLiked] = useState(false);
+  const outline = 'M2 0H4V1H5V0H7V1H8V2H9V5H8V6H7V7H6V8H5V9H4V8H3V7H2V6H1V5H0V2H1V1H2Z';
+  const inside = 'M2 1H4V2H5V1H7V2H8V5H7V6H6V7H5V8H4V7H3V6H2V5H1V2H2Z';
+
+  return (
+    <button
+      className={`photo-heart${liked ? ' is-filled' : ''}`}
+      type="button"
+      aria-label={liked ? 'Unlike this photo' : 'Like this photo'}
+      aria-pressed={liked}
+      title={liked ? 'Unlike this photo' : 'Like this photo'}
+      onClick={() => setLiked(current => !current)}
+    >
+      <svg viewBox="0 0 9 9" width="18" height="18" shapeRendering="crispEdges" aria-hidden="true">
+        <path d={`${outline} ${inside}`} fill="currentColor" fillRule="evenodd" />
+        {liked && <>
+          <path d={inside} fill="#ef4c5b" />
+          <path d="M7 3H8V5H7V6H6V7H5V8H4V7H5V6H6V5H7Z" fill="#c92c40" />
+          <path d="M2 2H4V3H2ZM1 3H2V4H1Z" fill="#ffafb6" />
+        </>}
+      </svg>
+    </button>
+  );
+}
+
 function Arrow({ className = '' }) {
   return <svg className={className} width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>;
 }
@@ -795,7 +821,7 @@ function App() {
             <figure className="polaroid polaroid-front">
               <div className="tape" aria-hidden="true" />
               <div className="photo-window"><img src={profile.portrait} alt="AI-generated portrait based on my reference photos" fetchPriority="high" width="1086" height="1448" /></div>
-              <figcaption><span className="handwritten">Hey, I’m {profile.name} <span className="caption-smile">☺</span></span><span className="photo-index pixel">001</span></figcaption>
+              <figcaption><span className="handwritten">Hey, I’m {profile.name} <PhotoHeart /></span><span className="photo-index pixel">001</span></figcaption>
             </figure>
             </div>
             <div className="portrait-label pixel"><span className="label-cross">✦</span> HUMAN, AFTER ALL.</div>
