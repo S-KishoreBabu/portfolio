@@ -1,5 +1,17 @@
 # Generated asset prompts
 
+## public/assets/finestcoder-corridor.webp
+
+Original corridor photo supplied by the user, saved unchanged from their open Google photo viewer. The 382 x 510 source matches the supplied image.
+
+Source: https://lh3.googleusercontent.com/gps-cs-s/ANWiy9QwT3EgFdNryfGS-CVGyTeQCcr2BoHLF2vKZnTjIur5umWHcDFrMsUaxgX58Yvk46L2TYnJjANUZnyGPNiLjLAemHWSAzRl3C6r_c-cH3mPNIQ756AL4mmOQRxOKv_AsvC_EB_8SQ=s680-w680-h510-rw
+
+## public/assets/finestcoder-reception.png
+
+Mode: built-in image editing. Edit target: the user's second uploaded office photo. The company wall plaque is AI-added; this is an edited photo, not an unaltered record of the reception.
+
+Use case: precise-object-edit. There are TWO uploaded office photos in the latest user message. Image 1 (glass-walled office corridor) is reference only; DO NOT output or combine it. Image 2 (reception counter, white walls, black-and-white balloons, mirror and patterned green curtain) is the ONLY edit target. Return exactly the second reception photograph, maintaining its original vertical 3:4 composition and all room geometry, floor tiles, green glass-top desk, chairs, curtain, mirror reflection, people in the reflection, balloons, lighting, exposure, and natural phone-camera look. Add ONE believable, professionally manufactured Finestcoder company name board mounted on the blank white wall behind the reception desk, to the left of the narrow mirror, above the small electrical panel and below the ceiling. Exact board lettering: 'Finest Coder'. 'Finest' is clean medium gray sans-serif and 'Coder' is teal sans-serif, matching the company's simple wordmark. The sign should be appropriately scaled for this small office, a slim white acrylic rectangular plaque with subtly raised crisp letters, very small mounting stand-offs, realistic wall contact shadow, correct perspective and ambient overhead lighting. Preserve imperfect real-world camera texture so it looks like a photographed physical sign installed in the actual office, not digital text pasted on top. The sign must be readable but modest in size and must not overlap the mirror, balloons, or electrical panel. Do not replace or redesign the office. Do not add any other branding. No artificial bokeh, no overpolished CGI effect, no border or watermark. Output only the edited reception photo.
+
 ## public/assets/sky-morning.png
 
 Mode: built-in image generation. Full-frame photographic hero sky.

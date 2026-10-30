@@ -259,7 +259,7 @@ a.hello-button { text-decoration: none; }
 }
 .timeline-now .experience-date { color: #62685b; font-weight: 500; }
 
-/* The Codingmart entry reveals a small cloud-backed photo board. */
+/* Each company reveals its own cards over the same fixed sky. */
 .company-gallery-trigger {
   padding: 0;
   border: 0;
@@ -295,7 +295,7 @@ a.hello-button { text-decoration: none; }
   transform: scale(.98);
   transition: opacity .25s ease, transform .35s ease, visibility .25s;
 }
-.gallery-open .gallery-content { opacity: 1; visibility: visible; transform: scale(1); }
+.gallery-content.is-active { opacity: 1; visibility: visible; transform: scale(1); }
 
 .office-gallery::after {
   content: '';
@@ -337,18 +337,25 @@ a.hello-button { text-decoration: none; }
 .office-photo figcaption { display: flex; align-items: center; gap: 5px; height: 25px; padding: 0 3px; color: #61615a; font-family: 'Pixelify Sans', monospace; font-size: 9px; letter-spacing: .2px; }
 .office-photo figcaption > span:first-child { height: 4px; width: 4px; border-radius: 50%; background: #d8dfaf; }
 .gallery-photo-index { margin-left: auto; color: #b5b6ab; font-size: 8px; }
-.office-photo-coding { top: 52px; left: 5%; transform: rotate(-5deg); }
-.office-photo-reception { bottom: 37px; right: 5%; transform: rotate(5deg); }
+.office-photo-first { top: 52px; left: 5%; transform: rotate(-5deg); }
+.office-photo-second { bottom: 37px; right: 5%; transform: rotate(5deg); }
+.gallery-content-finestcoder .office-photo { width: 34%; max-width: 170px; }
+.gallery-content-finestcoder .office-photo img { aspect-ratio: 382 / 510; object-fit: contain; }
+.gallery-content-finestcoder .office-photo-first { top: 46px; left: 9%; }
+.gallery-content-finestcoder .office-photo-second { bottom: 27px; right: 9%; }
 .office-photo:hover { z-index: 2; transform: rotate(0) scale(1.04); }
 .gallery-location { position: absolute; bottom: 12px; left: 19px; color: #69736f; font-size: 8px; letter-spacing: 1px; }
+[data-sky-lighting="dark"] .office-gallery .gallery-heading,
+[data-sky-lighting="dark"] .office-gallery .gallery-location { color: #f0f3ee; }
 @media (max-width: 760px) {
   .experience-right { min-height: 350px; margin-top: 28px; }
 }
 @media (max-width: 400px) {
   .experience-right { min-height: 310px; }
   .office-photo { width: 62%; }
-  .office-photo-coding { left: 5%; }
-  .office-photo-reception { right: 5%; }
+  .office-photo-first { left: 5%; }
+  .office-photo-second { right: 5%; }
+  .gallery-content-finestcoder .office-photo { width: 40%; }
 }
 
 /* Technology stack ticker */

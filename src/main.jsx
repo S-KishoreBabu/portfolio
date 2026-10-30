@@ -161,51 +161,63 @@ function ScrambleText({ text }) {
   );
 }
 
+const officeGalleries = {
+  codingmart: {
+    company: 'Codingmart Technologies',
+    location: 'CODINGMART · COIMBATORE',
+    photos: [
+      { src: '/assets/codingmart-coding-wall.jpg', alt: 'Codingmart’s yellow office with a colorful coding mural and wooden desks', caption: 'The coding corner', width: 1728, height: 1296 },
+      { src: '/assets/codingmart-reception.jpg', alt: 'Codingmart reception with its logo on a purple wall', caption: 'A warm welcome', width: 1728, height: 1296 },
+    ],
+  },
+  finestcoder: {
+    company: 'Finestcoder',
+    location: 'FINESTCODER · COIMBATORE',
+    photos: [
+      { src: '/assets/finestcoder-corridor.webp', alt: 'Finestcoder office corridor with glass partitions, decorations, and plants', caption: 'Around the office', width: 382, height: 510 },
+      { src: '/assets/finestcoder-reception.png', alt: 'Finestcoder reception desk with a gray and teal Finest Coder wall sign', caption: 'The reception', width: 1085, height: 1449 },
+    ],
+  },
+};
+
 function ExperienceTimeline() {
   const [galleryOpen, setGalleryOpen] = useState(false);
+  const [galleryCompany, setGalleryCompany] = useState('codingmart');
+
+  const showGallery = company => {
+    setGalleryCompany(company);
+    setGalleryOpen(true);
+  };
 
   return (
     <section className="experience-section" aria-labelledby="experience-heading">
       <div
-        className={`experience-layout${galleryOpen ? ' gallery-open' : ''}`}
+        className="experience-layout"
         onPointerLeave={event => { if (event.pointerType === 'mouse') setGalleryOpen(false); }}
-        onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setGalleryOpen(false); }}
+        onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget) && !event.currentTarget.matches(':hover')) setGalleryOpen(false); }}
         onKeyDown={event => { if (event.key === 'Escape') setGalleryOpen(false); }}
       >
         <div className="experience-left">
           <h2 id="experience-heading"><ScrambleText text="Experience" /><span className="experience-heading-dot">.</span></h2>
           <ol className="timeline-list">
             {[...experiences].reverse().map(experience => (
-              <li className="timeline-item" key={experience.company} onPointerEnter={() => { if (!experience.current) setGalleryOpen(false); }}>
+              <li className="timeline-item" key={experience.company} onPointerEnter={event => { if (event.pointerType === 'mouse') showGallery(experience.logoStyle); }}>
                 <span className="timeline-dot" aria-hidden="true" />
                 <time className="experience-date" dateTime={experience.startDate}>{experience.start.replace(' ', ' — ')}</time>
                 <div className="timeline-entry">
                   <h3>{experience.role}</h3>
-                  {experience.current ? (
-                    <a
-                      href="https://www.linkedin.com/company/codingmart-technologies/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="experience-company-row company-gallery-trigger"
-                      onPointerEnter={event => { if (event.pointerType === 'mouse') setGalleryOpen(true); }}
-                      onFocus={() => setGalleryOpen(true)}
-                    >
-                      <span className="experience-company">{experience.company}</span>
-                      <img className="company-logo company-logo-codingmart" src={experience.logo} alt="" width="128" height="128" />
-                      <span className="sr-only"> (opens LinkedIn in a new tab)</span>
-                    </a>
-                  ) : (
-                    <a
-                      className="experience-company-row company-gallery-trigger finestcoder-link"
-                      href="https://www.linkedin.com/company/finestcoder/posts/?feedView=all"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <span className="experience-company">{experience.company}</span>
-                      <img className="company-logo company-logo-finestcoder" src={experience.logo} alt="Finestcoder logo" loading="lazy" width="1431" height="267" />
-                      <span className="sr-only"> (opens LinkedIn in a new tab)</span>
-                    </a>
-                  )}
+                  <a
+                    href={experience.current ? 'https://www.linkedin.com/company/codingmart-technologies/' : 'https://www.linkedin.com/company/finestcoder/posts/?feedView=all'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="experience-company-row company-gallery-trigger"
+                    aria-controls={`office-gallery-${experience.logoStyle}`}
+                    onFocus={() => showGallery(experience.logoStyle)}
+                  >
+                    <span className="experience-company">{experience.company}</span>
+                    <img className={`company-logo company-logo-${experience.logoStyle}`} src={experience.logo} alt="" width={experience.current ? 128 : 1431} height={experience.current ? 128 : 267} />
+                    <span className="sr-only"> (opens LinkedIn in a new tab)</span>
+                  </a>
                   <p className="experience-description">{experience.summary}</p>
                 </div>
               </li>
@@ -217,7 +229,7 @@ function ExperienceTimeline() {
           </ol>
         </div>
         <div className="experience-right">
-          <aside className="office-gallery" aria-label="Inside Codingmart Technologies">
+          <aside className="office-gallery" aria-label={`Inside ${officeGalleries[galleryCompany].company}`}>
             <div className="office-gallery-static-sky" aria-hidden="true">
               {['morning', 'day', 'evening', 'night'].map(scene => (
                 <div key={scene} className={`office-gallery-sky-scene office-gallery-sky-scene-${scene}`}>
@@ -225,19 +237,22 @@ function ExperienceTimeline() {
                 </div>
               ))}
             </div>
-            <div id="codingmart-gallery" className="gallery-content" aria-hidden={!galleryOpen} inert={!galleryOpen}>
-            <span className="gallery-heading pixel">A LITTLE LOOK INSIDE</span>
-            <button type="button" className="gallery-close" aria-label="Close office photos" onClick={() => setGalleryOpen(false)}>×</button>
-            <figure className="office-photo office-photo-coding">
-              <img src="/assets/codingmart-coding-wall.jpg" alt="Codingmart’s yellow office with a colorful coding mural and wooden desks" width="1728" height="1296" />
-              <figcaption><span />The coding corner <span className="gallery-photo-index">01</span></figcaption>
-            </figure>
-            <figure className="office-photo office-photo-reception">
-              <img src="/assets/codingmart-reception.jpg" alt="Codingmart reception with its logo on a purple wall" width="1728" height="1296" />
-              <figcaption><span />A warm welcome <span className="gallery-photo-index">02</span></figcaption>
-            </figure>
-            <span className="gallery-location pixel">CODINGMART · COIMBATORE</span>
-            </div>
+            {Object.entries(officeGalleries).map(([company, gallery]) => {
+              const isVisible = galleryOpen && galleryCompany === company;
+              return (
+                <div key={company} id={`office-gallery-${company}`} className={`gallery-content gallery-content-${company}${isVisible ? ' is-active' : ''}`} aria-hidden={!isVisible} inert={!isVisible}>
+                  <span className="gallery-heading pixel">A LITTLE LOOK INSIDE</span>
+                  <button type="button" className="gallery-close" aria-label="Close office photos" onClick={() => setGalleryOpen(false)}>×</button>
+                  {gallery.photos.map((photo, index) => (
+                    <figure className={`office-photo office-photo-${index === 0 ? 'first' : 'second'}`} key={photo.src}>
+                      <img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} />
+                      <figcaption><span />{photo.caption}<span className="gallery-photo-index">0{index + 1}</span></figcaption>
+                    </figure>
+                  ))}
+                  <span className="gallery-location pixel">{gallery.location}</span>
+                </div>
+              );
+            })}
           </aside>
         </div>
       </div>
