@@ -322,7 +322,7 @@ const projects = [
     logoName: 'Interngo',
     category: 'Full-Stack Development',
     description: 'An intern management platform for performance tracking, attendance, resources, helpdesk, and analytics.',
-    companies: [{ name: 'Finestcoder', logo: '/assets/finestcoder-logo.png', className: 'finestcoder' }],
+    companies: ['Finestcoder'],
     stack: ['React', 'Node.js', 'Fastify', 'PostgreSQL', 'AWS'],
     details: [
       'Built the frontend and backend end to end.',
@@ -339,10 +339,7 @@ const projects = [
     logoName: 'FC Labs',
     category: 'Frontend Development',
     description: 'A college administration panel for tracking workshops, trainers, student participation, and learning progress.',
-    companies: [
-      { name: 'Finestcoder', logo: '/assets/finestcoder-logo.png', className: 'finestcoder' },
-      { name: 'Codingmart Technologies', logo: '/assets/codingmart-logo.png', className: 'codingmart' },
-    ],
+    companies: ['Finestcoder', 'Codingmart Technologies'],
     stack: ['Astro', 'React', 'Fastify', 'PostgreSQL'],
     details: [
       'Built the administration panel as part of a four-person team.',
@@ -358,7 +355,7 @@ const projects = [
     logoName: 'AOKAH',
     category: 'AI Engineering',
     description: 'A conversational AI platform that retrieves context about capability centers, projects, milestones, and tasks.',
-    companies: [{ name: 'Codingmart Technologies', logo: '/assets/codingmart-logo.png', className: 'codingmart' }],
+    companies: ['Codingmart Technologies'],
     stack: ['Python', 'LangChain', 'FastAPI', 'Hugging Face'],
     details: [
       'Built Python workflows to extract, clean, and transform information from PDF and CSV files.',
@@ -442,16 +439,9 @@ function ProjectSection() {
                     </td>
                     <td className="project-name-cell">
                       <span className="project-name">{project.name}</span>
-                      <span className="project-companies" aria-label={`Worked on at ${project.companies.map(company => company.name).join(' and ')}`}>
+                      <span className="project-companies" aria-label={`Companies: ${project.companies.join(' and ')}`}>
                         {project.companies.map(company => (
-                          <img
-                            className={`project-company-logo project-company-logo-${company.className}`}
-                            key={company.name}
-                            src={company.logo}
-                            alt={company.name}
-                            title={company.name}
-                            loading="lazy"
-                          />
+                          <span className="project-company-name" key={company}>{company}</span>
                         ))}
                       </span>
                     </td>
@@ -488,7 +478,7 @@ function ProjectSection() {
                               <p>{project.description}</p>
                               <div className="project-accordion-companies">
                                 {project.companies.map(company => (
-                                  <img key={company.name} className={`project-company-logo project-company-logo-${company.className}`} src={company.logo} alt={company.name} title={company.name} />
+                                  <span className="project-company-name" key={company}>{company}</span>
                                 ))}
                               </div>
                             </div>
