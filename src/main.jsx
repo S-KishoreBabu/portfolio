@@ -690,7 +690,7 @@ function TeaMessageSection() {
             </div>
             <label htmlFor="tea-message">Your message<textarea id="tea-message" name="message" placeholder="What’s on your mind?" rows={4} maxLength={5000} onInput={event => event.currentTarget.setCustomValidity('')} required /></label>
             <div className="tea-form-footer">
-              <button className="tea-send-button" type="submit">Open email draft<Arrow /></button>
+              <button className="tea-send-button" type="submit"><span>Open email draft</span><Arrow /></button>
               <span className="tea-form-note">Opens in your email app.</span>
             </div>
           </form>
