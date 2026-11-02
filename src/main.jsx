@@ -745,15 +745,12 @@ function ContactSection() {
         <div className="contact-portrait-wrap">
           <figure className="contact-portrait-card">
             <img src="/assets/contact-scribble.png" alt="A childlike pencil and colored-pencil portrait of Kishorebabu" loading="lazy" />
-            <figcaption className="pixel">A LITTLE SKETCH OF ME</figcaption>
           </figure>
           <span className="contact-doodle contact-doodle-one" aria-hidden="true">~</span>
           <svg className="contact-doodle contact-doodle-two" viewBox="0 0 80 48" aria-hidden="true"><path d="M3 30c14-24 19 14 33-7S59 2 76 17M13 39c16-16 22 7 34-3" /></svg>
         </div>
         <div className="contact-copy">
-          <span className="contact-eyebrow pixel">FIND ME AROUND THE INTERNET</span>
           <h2 id="contact-heading">Let’s connect<span>.</span></h2>
-          <p className="contact-intro">Have a question, an idea, or just want to say hello? Find me here.</p>
           <nav className="contact-links" aria-label="Social profiles and contact details">
             {contactLinks.map(link => (
               <a
